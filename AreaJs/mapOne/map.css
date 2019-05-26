@@ -3,12 +3,12 @@
 }
 
 #province{
-	border: 1px 0px 1px 0px;
 	
 }
 
 #city{
-	
+	 border-left:0px;
+     border-right: 0px;
 }
 
 #zone{
