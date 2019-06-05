@@ -1,15 +1,15 @@
-****    此框架只依赖zepto.js  
+***    此框架只依赖zepto.js  
       
       $.sDialog({
             content: "标题",
-			okBtnText:"左下的标题",
+	    okBtnText:"左下的标题",
             cancelBtnText:"右下的标题",
             okFn: function() {
                 //确定的方法
             },
-			cancelFn: function(){
-				//取消的方法
-			}
+	    cancelFn: function(){
+		//取消的方法
+	    }
         })
 		
 		
