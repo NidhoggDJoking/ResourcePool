@@ -9,7 +9,7 @@
             },
 	    cancelFn: function(){
 		//取消的方法
-	    }
+	      }
         })
 		
 		
