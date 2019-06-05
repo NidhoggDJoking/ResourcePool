@@ -1,0 +1,15 @@
+/*操作提示弹出层*/
+.s-dialog-mask { position: fixed; z-index: 999; top: 0; right: 0; bottom: 0; left: 0; filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#BF000000', endColorstr='#BF000000');background:rgba(0,0,0,0.75);}
+.s-dialog-wrapper { position: fixed; z-index: 9999; max-width: 12rem; min-width: 10rem; margin-top: -2rem; border-radius: 0.2rem;}
+.s-dialog-skin-green { background-color: rgba(255,255,255,0.90); border: solid 0.05rem #000;}
+.s-dialog-skin-block { background-color: rgba(255,255,255,0.90); border: solid 0.05rem #000;}
+.s-dialog-skin-red { background-color: rgba(255,255,255,0.90); border: solid 0.05rem #000;}
+.s-dialog-content { padding: 0.8rem 0.6rem; text-align: center; font-size: 0.75rem; line-height: 0.9rem;}
+.s-dialog-skin-green .s-dialog-content { color: #000;}
+.s-dialog-skin-red .s-dialog-content { color: #000;}
+.s-dialog-skin-block .s-dialog-content { color: #000;}
+.s-dialog-content h6 { display: block; font-size: 0.55rem; line-height: 0.9rem; color: #333;}
+.s-dialog-btn-wapper { display: block; padding: 0.6rem 0; border-top: solid 0.05rem rgba(0,0,0,0.15); font-size: 0; }
+.s-dialog-btn-wapper a { display: inline-block; width: 49%; font-size: 0.7rem; font-weight: 600; line-height: 0.9rem; color: #0080FF; text-align: center;}
+.s-dialog-btn-wapper a:last-child { border-left: solid 0.05rem rgba(0,0,0,0.15);}
+.s-dialog-skin-block .s-dialog-btn-wapper a { color: #0080FF;}
