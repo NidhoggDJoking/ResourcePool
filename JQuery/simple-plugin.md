@@ -1,3 +1,5 @@
+****    此框架只依赖zepto.js  
+      
       $.sDialog({
             content: "标题",
 			okBtnText:"左下的标题",
