@@ -1,4 +1,4 @@
-###    此框架只依赖zepto.js  
+###    simple-plugin此框架只依赖zepto.js  
 
 ```
     $.sDialog({
