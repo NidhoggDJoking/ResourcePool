@@ -38,3 +38,28 @@ const deepFlatten = arr => [].concat(...arr.map(v => (Array.isArray(v) ? deepFla
 const difference = (a, b) => {const s = new Set(b); return a.filter(x => !s.has(x));};
 
 // 过滤出数组中比较函数不返回 true 的所有值。 类似于difference ,除了接受一个 comparator （比较函数）。使用 Array.filter() 和 Array.findIndex() 来查找合适的值。
+const differenceWith = (arr, val, comp) => arr.filter(a => val.findIndex(b => comp(a, b)) === -1);
+
+// 返回数组的所有不同值。使用 ES6 的 Set 和 ...rest 操作符剔除重复的值
+const distinctValuesOfArray = arr => [...new Set(arr)];
+
+// 删除数组中的元素，直到传递的函数返回 true 。 返回数组中的其余元素。循环访问数组，使用 Array.slice() 在数组中从第一个元素开始删除，直到函数的返回值为 true。 返回其余的元素
+const dropElements = (arr, func) => { while (arr.length > 0 && !func(arr[0])) arr = arr.slice(1); return arr;};
+
+// 返回从右开始删除 n 个元素的新数组。检查 n 是否小于给定数组的长度，并且使用 Array.slice() 来从右开始删除指定数量的元素
+const dropRight = (arr, n = 1) => arr.slice(0, -n);
+
+// 返回数组中的每个第 n 个元素。使用 Array.filter() 创建一个包含给定数组的每个第 n 个元素的新数组
+const everyNth = (arr, nth) => arr.filter((e, i) => i % nth === nth - 1);
+
+// 过滤掉数组中的非唯一值。使用 Array.filter() 滤除掉非唯一值，使数组仅包含唯一值
+const filterNonUnique = arr => arr.filter(i => arr.indexOf(i) === arr.lastIndexOf(i));
+
+// 返回 提供的函数返回真(truthy)值的最后一个元素。使用 Array.filter() 移除 fn 返回 falsey 值的元素，Array.slice(-1) 得到最后一个元素
+const findLast = (arr, fn) => arr.filter(fn).slice(-1);
+
+// 将数组平铺到指定的深度使用递归，为每个深度级别 depth 递减 1 。 使用 Array.reduce() 和 Array.concat() 来合并元素或数组。 基本情况下，depth 等于 1 停止递归。 省略第二个参数，depth 只能平铺到 1 (单层平铺) 的深度
+const flatten = (arr, depth = 1) => depth != 1 ? arr.reduce((a, v) => a.concat(Array.isArray(v) ? flatten(v, depth - 1) : v), []) : arr.reduce((a, v) => a.concat(v), []);
+
+// 从数组的最后一个元素开始，为每个数组元素执行一次提供的函数。使用 Array.slice(0) 克隆给定的数组，Array.reverse() 反转数组，Array.forEach() 遍历这个反向数组
+const forEachRight = (arr, callback) => arr.slice(0).reverse().forEach(callback);
