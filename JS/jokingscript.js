@@ -24,3 +24,17 @@ const chunk = (arr, size) => Array.from({ length: Math.ceil(arr.length / size) }
 
 // 从数组中移除 falsey 值元素。使用 Array.filter() 过滤掉数组中所有 假值元素(false, null, 0, "", undefined, 和 NaN)
 const compact = arr => arr.filter(Boolean);
+
+// 根据给定的函数对数组的元素进行分组，并返回每个分组中元素的数量。使用 Array.map() 将数组的值映射到函数或属性名称。 使用 Array.reduce() 创建一个对象，其中的键是从映射的结果中产生的
+const countBy = (arr, fn) => arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val, i) => { acc[val] = (acc[val] || 0) + 1; return acc;}, {});
+
+// 计算数组中值的出现次数。每次遇到数组中的某个特定值时，使用 Array.reduce() 来递增计数器
+const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a + 0), 0);
+
+// 深度平铺一个数组。使用递归。 通过空数组([]) 使用 Array.concat() ，结合 展开运算符( ... ) 来平铺数组。 递归平铺每个数组元素。
+const deepFlatten = arr => [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)));
+
+// 返回两个数组之间的差异。根据数组 b 创建一个 Set 对象，然后在数组 a 上使用 Array.filter() 方法，过滤出数组 b 中不包含的值
+const difference = (a, b) => {const s = new Set(b); return a.filter(x => !s.has(x));};
+
+// 过滤出数组中比较函数不返回 true 的所有值。 类似于difference ,除了接受一个 comparator （比较函数）。使用 Array.filter() 和 Array.findIndex() 来查找合适的值。
