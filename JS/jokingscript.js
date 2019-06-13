@@ -63,3 +63,33 @@ const flatten = (arr, depth = 1) => depth != 1 ? arr.reduce((a, v) => a.concat(A
 
 // 从数组的最后一个元素开始，为每个数组元素执行一次提供的函数。使用 Array.slice(0) 克隆给定的数组，Array.reverse() 反转数组，Array.forEach() 遍历这个反向数组
 const forEachRight = (arr, callback) => arr.slice(0).reverse().forEach(callback);
+
+// 根据给定的函数对数组元素进行分组。使用 Array.map() 将数组的值映射到函数或属性名称。使用 Array.reduce() 来创建一个对象，其中的 key 是从映射结果中产生
+const groupBy = (arr, fn) => arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val, i) => {acc[val] = (acc[val] || []).concat(arr[i]);return acc;}, {});
+
+// 返回数组的第一个元素。使用 arr[0] 返回传递数组的第一个元素
+const head = arr => arr[0];
+
+// 返回数组中所有 val 的索引。 如果 val 从不出现，则返回 [] 。使用 Array.forEach() 循环元素和 Array.push() 来存储匹配元素的索引。 返回索引数组
+const indexOfAll = (arr, val) => {const indices = [];arr.forEach((el, i) => el === val && indices.push(i));return indices;};
+
+// 返回一个数组中除了最后一个元素以外的所有元素。使用 arr.slice(0,-1) 返回排除了最后一个元素的数组
+const initial = arr => arr.slice(0, -1);
+
+// 初始化一个给定行数和列数，及值的二维数组。使用 Array.map() 生成 h 行，其中每个行都是一个长度为 w 的新数组。 如果未提供值 val ，则默认为 null
+const initialize2DArray = (w, h, val = null) => Array.from({ length: h }).map(() => Array.from({ length: w }).fill(val));
+
+// 初始化一个数组，该数组包含指定范围内的数字，包括 start 和 end ，数字间隔为 step 。使用 Array.from(Math.ceil((end+1-start)/step)) 创建一个所需长度的数组（元素的数量等于 (end-start)/step 或者 (end+1-start)/step 包括 end ）， 用 Array.map() 填充在这个范围内要求的值。 你可以省略 start 来使用默认值 0。 您可以省略 step 使用默认值 1
+const initializeArrayWithRange = (end, start = 0, step = 1) => Array.from({ length: Math.ceil((end + 1 - start) / step) }).map((v, i) => i * step + start);
+
+// 使用指定的值初始化和填充数组。使用 Array(n) 创建所需长度的数组，使用 fill(v) 以填充所需的值。 你可以忽略 val ，使用默认值 0
+const initializeArrayWithValues = (n, val = 0) => Array(n).fill(val);
+
+// 返回两个数组中都存在的元素列表。根据数组 b 创建一个 Set 对象，然后在数组 a 上使用 Array.filter() 方法，只保留数组 b 中也包含的值
+const intersection = (a, b) => { const s = new Set(b);return a.filter(x => s.has(x));};
+
+// 如果数组按升序排序，则返回 1 ;如果按降序排列则返回-1 ;如果未排序则返回0。计算前两个元素的排序方向 direction 。 使用 Object.entries() 来循环使用数组对象并对它们进行比较。 如果 direction 改变，则返回 0 ，如果直到最后一个元素， direction 没有改变，则返回 direction
+const isSorted = arr => {const direction = arr[0] > arr[1] ? -1 : 1;for (let [i, val] of arr.entries())if (i === arr.length - 1) return direction;else if ((val - arr[i + 1]) * direction > 0) return 0;};
+
+// 将数组的所有元素拼接成一个字符串并返回此字符串。 使用分隔符和结束分隔符。使用 Array.reduce() 将元素拼接成一个字符串。 省略第二个参数 separator ，则默认使用分隔符','。 省略第三个参数 end ，默认使用与separator相同的值
+const join = (arr, separator = ',', end = separator) =>arr.reduce((acc, val, i) =>i == arr.length - 2 ? acc + val + end : i == arr.length - 1 ? acc + val : acc + val + separator,'');
