@@ -93,3 +93,12 @@ const isSorted = arr => {const direction = arr[0] > arr[1] ? -1 : 1;for (let [i,
 
 // 将数组的所有元素拼接成一个字符串并返回此字符串。 使用分隔符和结束分隔符。使用 Array.reduce() 将元素拼接成一个字符串。 省略第二个参数 separator ，则默认使用分隔符','。 省略第三个参数 end ，默认使用与separator相同的值
 const join = (arr, separator = ',', end = separator) =>arr.reduce((acc, val, i) =>i == arr.length - 2 ? acc + val + end : i == arr.length - 1 ? acc + val : acc + val + separator,'');
+
+// 返回数组中的最后一个元素。使用 arr.length - 1 来计算给定数组的最后一个元素的索引并返回
+const last = arr => arr[arr.length - 1];
+
+// 获取任何数量的可迭代对象或具有 length 属性的对象，并返回最长的一个。使用 Array.sort() 按 length 对所有参数进行排序，返回第一个（最长）元素
+const longestItem = (...vals) => [...vals].sort((a, b) => b.length - a.length)[0];
+
+// 使用一个函数将数组的值映射到对象，其键值对中，原始值作为键，映射值作为值。使用一个匿名的内部函数作用域来声明一个 undefined 的内存空间，使用闭包来存储返回值。 使用一个新的 Array 来存储带有函数映射的数组和一个逗号运算符来返回第二个步骤，而不需要从一个上下文移动到另一个上下文（由于闭包和操作顺序）
+const mapObject = (arr, fn) =>(a => ((a = [arr, arr.map(fn)]), a[0].reduce((acc, val, ind) => ((acc[val] = a[1][ind]), acc), {})))();
