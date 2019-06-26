@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #qrcode {
+        position: relative;
+        top: 30rem;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    .mask-layer {
+        width: 100%;
+        height: 100%;
+        background-color: #1f1f1f;
+        position: absolute;
+    }
+
+    .qrcode canvas {
+        border: 20px solid #ffffff;
+    }
+    </style>
+    <script src="http://cdn.staticfile.org/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <div class="mask-layer">
+        <div id="qrcode"></div>
+    </div>
+    <script>
+    var url = window.location.href;
+    var value = url.substring(url.lastIndexOf('?tid=') + 5);
+    console.log(value);
+    var tid = '45';
+    $(function() {
+        // $('#qrcode').qrcode("http://zz.niqiuge.cn/index.php?s=/wap/login");
+        // 更详细的配置
+        $('#qrcode').qrcode({
+            text: "http://zz.niqiuge.cn/index.php?s=/wap/login/getWchatQrcode&source=3", // 要编码的字符串
+            width: 400, // 定义宽度
+            height: 400, // 定义高度
+            background: "#fff", // 背景色
+            // foreground: "red" // 前景色
+        });
+
+        $('canvas').css('border', '20px solid #ffffff');
+    })
+    </script>
+</body>
+
+</html>
