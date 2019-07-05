@@ -1,281 +1,445 @@
-    <!DOCTYPE>  
-    <html xmlns="http://www.w3.org/1999/xhtml">  
-    <head>  
-        <title>百度地图API显示多个标注点带提示</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    </head>  
-    <style type="text/css">
-        *{
-            margin: 0px;
-            padding: 0px;
-            border: 0px;
-        }
-        body{
-            height: 100%;
-        }
-        .anchorBL{
-            display:none;
-        }
-        .BMapLabel{
-            border: 1px solid rgb(204, 204, 204) !important;
-            color: #525252 !important;
-            border-radius: 10px !important;
-            padding: 1px 5px 1px 3px !important;
-        }
-        .demo_content{
-            height: 100%;
-        } 
-        .con-card{
-            position:fixed;
-            bottom: -32rem;
-            width: 100%;
-            height: 34rem;
-            background: #fff;
-            border-radius: 23px 23px 0px 0px;
-            transition: all .4s cubic-bezier(0.71, 0, 0.16, 0.76);
-        }
-        .con-tit-icon{
-            margin: 0px auto;
-            width: 22px;
-            height: 6px;
-            background: #c7c7c79e;
-            border-radius: 15px;
-            margin-top: 13px;
-            transition: all .4s cubic-bezier(0.71, 0, 0.16, 0.76);
-        }
-        .con-card-tit-head{
-            /*height: 3rem;*/
-            height: 1rem;
-            border-bottom: 1px solid #f3f3f3;
-            padding-left: 2rem;
-            line-height: 3rem;
-            font-size: 17px;
-            font-weight: 600;
-            color: #4a4a4a;
-        }
-        .active{
-            bottom:0rem;
-        }
-        .active-icon{
-            width: 48px;
-            height: 5px;
-            background: #ecebf4;
-        }
-        .map-details{
-            font-size: 12px;
-            line-height: 1.8em;
-            color: #5a5a5a;
-        }
-        .list-li{
-            border-bottom: 1px solid #e2e2e2;
-            /*display: grid;
-            width: 100%;
-            grid-template-columns: repeat(3, 3fr);
-            grid-template-rows: repeat(3, 3fr);*/
-        }
-        .list-li>img{
-            width: 100px;
-            height: 100px;
-            padding: 10px;
-        }
-        .container{
-            display: grid;
-            grid-template-columns: repeat(6,1fr);
-            grid-template-rows: repeat(2,58px);
-            grid-row-gap: 5px;
-            grid-column-gap: 0px;
-         
-        }
+﻿<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-        .item {
-          font-size: 1em;
-          padding:10px;
+<head>
+    <title>百度地图API显示多个标注点带提示</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+</head>
+<style type="text/css">
+* {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+body {
+    height: 100%;
+}
+
+.anchorBL {
+    display: none;
+}
+
+.BMapLabel {
+    border: 1px solid rgb(204, 204, 204) !important;
+    color: #525252 !important;
+    border-radius: 10px !important;
+    padding: 1px 5px 1px 3px !important;
+}
+
+.demo_content {
+    height: 100%;
+}
+
+.con-card {
+    position: fixed;
+    bottom: -32rem;
+    width: 100%;
+    height: 34rem;
+    background: #fff;
+    border-radius: 23px 23px 0px 0px;
+    transition: all .4s cubic-bezier(0.71, 0, 0.16, 0.76);
+}
+
+.con-tit-icon {
+    margin: 0px auto;
+    width: 22px;
+    height: 6px;
+    background: #c7c7c79e;
+    border-radius: 15px;
+    margin-top: 13px;
+    transition: all .4s cubic-bezier(0.71, 0, 0.16, 0.76);
+}
+
+.con-card-tit-head {
+    /*height: 3rem;*/
+    height: 1rem;
+    border-bottom: 1px solid #f3f3f3;
+    padding-left: 2rem;
+    line-height: 3rem;
+    font-size: 17px;
+    font-weight: 600;
+    color: #4a4a4a;
+}
+
+.active {
+    bottom: 0rem;
+}
+
+.active-icon {
+    width: 48px;
+    height: 5px;
+    background: #ecebf4;
+}
+
+.map-details {
+    font-size: 12px;
+    line-height: 1.8em;
+    color: #5a5a5a;
+}
+
+.list-li {
+    border-bottom: 1px solid #e2e2e2;
+    /*display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, 3fr);
+    grid-template-rows: repeat(3, 3fr);*/
+
+}
+
+.list-li>img {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 58px);
+    grid-row-gap: 5px;
+    grid-column-gap: 0px;
+
+}
+
+.item {
+    font-size: 1em;
+    padding: 10px;
+}
+
+.item-1 {
+    grid-column: 1/3;
+    grid-row: 1/3;
+}
+
+.item-1>img {
+    width: 100%;
+    height: 100%;
+}
+
+.item-2 {
+    grid-column: 3/7;
+    grid-row: 1/2;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.item-3 {
+    grid-column: 3/7;
+}
+
+.item-2>div {
+    color: #404040;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.item-3>div {
+    color: #888;
+    font-size: 14px;
+}
+</style>
+<style>
+    .placeholder {
+    position: relative;
+    margin:1rem 0px 0.6rem 0px
+}
+
+.placeholder .plc-image {
+    width: 31.2%;
+    padding-bottom: 23.4%;
+    position: relative;
+    display: inline-block;
+}
+
+.placeholder.one-img-plc a,
+.placeholder.three-img-plc a {
+    display: block;
+    -webkit-touch-callout: initial;
+}
+
+.placeholder.three-img-plc a {
+    display: initial;
+}
+
+.placeholder .plc-image img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    border-radius: .3rem;
+    /*background-size: 67%;*/
+}
+
+.placeholder .plc-con {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 66%;
+}
+
+.placeholder .plc-con .plc-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    position: relative;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.plc-title-foot{
+    font-size: .5rem;
+    color: #404040;
+    margin-top: .3rem;
+}
+.placeholder a:visited .plc-title {
+    text-decoration: initial;
+    color: #4a4a4a;
+}
+
+.placeholder .plc-footer {
+    color: #99a2aa;
+    width: 100%;
+    font-size: 0.2rem;
+}
+
+.placeholder .tip {
+    margin: -.1rem .3rem 0 .3rem;
+    border-radius: .15rem;
+    color: #fff;
+    font-size: 1rem;
+    padding: .03rem .2rem;
+    text-align: center;
+    display: inline-block;
+}
+
+.placeholder .tip-gray {
+    background-color: #ccc;
+}
+
+.placeholder .plc-con .plc-footer .plc-footer-fr {
+    float: right;
+    position: relative;
+}
+
+.one-img-plc .plc-footer {
+    position: absolute;
+    bottom: .12rem;
+}
+
+.three-img-plc {
+    padding-bottom: 1.5rem;
+}
+
+.three-img-plc .title {
+    color: #333;
+    font-size: 1.6rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.three-img-plc a:visited .title {
+    text-decoration: initial;
+    color: #888;
+}
+
+.three-img-plc .pic-space {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: .3rem 0;
+}
+
+.three-img-plc .pic-space .plc-image {
+    flex: none;
+}
+
+.three-img-plc a .plc-footer {
+    position: absolute;
+    bottom: -.3rem;
+    left: 0;
+}
+
+.three-img-plc .plc-footer .plc-footer-fr {
+    float: right;
+    position: relative;
+}
+
+.content {
+    background: #fff;
+}
+
+.content {
+    position: relative;
+    padding: 0 1rem;
+    margin-top: -.6rem;
+}
+
+.plc-title-foot:before{
+    content: '';
+    background: url(./img/dw.png) no-repeat;
+    width: 12px;
+    height: 15px;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+</style>
+
+<body>
+    <div class="demo_content">
+        <div style="height: 100%; width: 100%;" id="map"></div>
+    </div>
+    <div class="con-card">
+        <div class="con-card-click">
+            <div class="con-tit-icon"></div>
+            <p class="con-card-tit-head"></p>
+        </div>
+        <div style="height: 32rem;overflow: scroll;">
+            <ul class="list-ul">
+                <li class="list-li">
+                    <div class="content">
+                        <div class="placeholder one-img-plc">
+                            <a href="#">
+                                <div class="plc-image"><img src="http://img2.ph.126.net/KJUpspbXpH1i1tspv7qm1A==/6598082416866994649.jpg" style="display: block;"></div>
+                                <div class="plc-con">
+                                    <p class="plc-footer">
+                                        <span class="post-time">1000Km</span>
+                                        <!-- <span class="plc-footer-fr">
+                                            <span class="review-num">0评</span>
+                                        </span> -->
+                                    </p>
+                                    <p class="plc-title">广州火车站</p>
+                                    <p class="plc-title-foot">广东省广州市广州火车站广东省广州市广州火车站</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<!-- 动画 -->
+<script type="text/javascript">
+$('.con-card-click').click(function(event) {
+    $('.con-card').toggleClass('active');
+    $('.con-tit-icon').toggleClass('active-icon');
+});
+</script>
+<!-- 地图 -->
+<script type="text/javascript">
+var markerArr = [
+    { title: "名称：广州火车站", point: "113.264531,23.157003", address: "广东省广州市广州火车站", tel: "12306" },
+    { title: "名称：广州塔（赤岗塔）", point: "113.330934,23.113401", address: "广东省广州市广州塔（赤岗塔） ", tel: "18500000000" },
+    { title: "名称：广州动物园", point: "113.312213,23.147267", address: "广东省广州市广州动物园", tel: "18500000000" },
+    { title: "名称：天河公园", point: "113.372867,23.134274", address: "广东省广州市天河公园", tel: "18500000000" }
+
+];
+
+function map_init() {
+    var map = new BMap.Map("map"); // 创建Map实例  
+    var point = new BMap.Point(113.312213, 23.147267); //地图中心点，广州市  
+    map.centerAndZoom(point, 23); // 初始化地图,设置中心点坐标和地图级别。
+    // map.enableScrollWheelZoom(true); 
+    //启用滚轮放大缩小  
+    
+
+    //向地图中添加缩略图控件  
+    // var ctrlOve = new window.BMap.OverviewMapControl({  
+    //     anchor: BMAP_ANCHOR_BOTTOM_RIGHT,  
+    //     isOpen: 1  
+    // });  
+    // map.addControl(ctrlOve);  
+
+    //向地图中添加比例尺控件  
+    // var ctrlSca = new window.BMap.ScaleControl({  
+    //     anchor: BMAP_ANCHOR_BOTTOM_LEFT  
+    // });  
+    // map.addControl(ctrlSca);  
+
+    var point = new Array(); //存放标注点经纬信息的数组  
+    var marker = new Array(); //存放标注点对象的数组  
+    var info = new Array(); //存放提示信息窗口对象的数组 
+
+    // var myIcon = new BMap.Icon("./img/map.png", new BMap.Size(30,35));
+    // var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+
+
+    // 将数据步入对应的数组
+    for (var i = 0; i < markerArr.length; i++) {
+        var p0 = markerArr[i].point.split(",")[0]; //  
+        var p1 = markerArr[i].point.split(",")[1]; //按照原数组的point格式将地图点坐标的经纬度分别提出来  
+        point[i] = new window.BMap.Point(p0, p1); //循环生成新的地图点  
+        // marker[i] = new window.BMap.Marker(point[i],{icon:myIcon}); //按照地图点坐标生成标记 
+        marker[i] = new window.BMap.Marker(point[i]);
+        map.addOverlay(marker[i]);
+        marker[i].setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
+        // var label = new window.BMap.Label(markerArr[i].title, { offset: new window.BMap.Size(20, -10) });  
+        // marker[i].setLabel(label);  
+        info[i] = new window.BMap.InfoWindow("<p class='map-details'>" + markerArr[i].title + "</br>地址：" + markerArr[i].address + "</br> 电话：" + markerArr[i].tel + "</br></p>"); // 创建信息窗口对象  
+    }
+    // marker[0].addEventListener("mouseover", function () {  
+    //     this.openInfoWindow(info[0]);  
+    // });  
+    // marker[1].addEventListener("mouseover", function () {  
+    //     this.openInfoWindow(info[1]);  
+    // });  
+    // marker[2].addEventListener("mouseover", function () {  
+    //     this.openInfoWindow(info[2]);  
+    // }); 
+
+    // 转换成移动端点击
+    marker[0].addEventListener("click", function() {
+        this.openInfoWindow(info[0]);
+    });
+    marker[1].addEventListener("click", function() {
+        this.openInfoWindow(info[1]);
+    });
+    marker[2].addEventListener("click", function() {
+        this.openInfoWindow(info[2]);
+    });
+}
+//异步调用百度js  
+function map_load() {
+    var load = document.createElement("script");
+    load.src = "http://api.map.baidu.com/api?v=1.4&ak=Z7YUjqYw69iFb7wFNc4LAbHSvp4e9a1U&callback=map_init";
+    document.body.appendChild(load);
+}
+window.onload = map_load;
+</script>
+<!-- 距离 -->
+<script type="text/javascript">
+
+
+// var pointA = new BMap.Point(106.486654, 29.490295); // 创建点坐标A--大渡口区
+// var pointB = new BMap.Point(106.581515, 29.615467); // 创建点坐标B--江北区
+// alert((map.getDistance(pointA, pointB)).toFixed(2)); //获取两点距离,保留小数点后两位
+
+
+function dw(){
+    console.log(new BMap.Geolocation())
+var geolocation = new BMap.Geolocation();
+    geolocation.getCurrentPosition(function(r){
+        if(this.getStatus() == BMAP_STATUS_SUCCESS){
+            var mk = new BMap.Marker(r.point);
+            map.addOverlay(mk);
+            map.panTo(r.point);
+            alert('您的位置：'+r.point.lng+','+r.point.lat);
         }
+        else {
+            alert('failed'+this.getStatus());
+        }        
+    },{enableHighAccuracy: true})
+}
+</script>
 
-        .item-1 {
-          grid-column:1/3;
-          grid-row:1/3;
-        }
-        .item-1>img{
-            width: 100%;
-            height: 100%;
-        }
-        .item-2 {
-          grid-column: 3/7;
-          grid-row:1/2;
-          border-bottom: 1px solid #e2e2e2;
-        }
-        .item-3 {
-          grid-column: 3/7;
-        }
-
-
-    </style>
-    <body>  
-     
-            <div class="demo_content">  
-                <div style="height: 100%; width: 100%;" id="map"></div>
-            </div>  
-   
-            <div class="con-card">
-                <div class="con-card-click">
-                    <div class="con-tit-icon"></div>
-                    <p class="con-card-tit-head"></p>
-                </div>
-                <div style="height: 32rem;overflow: scroll;">
-                <ul class="list-ul">
-                    <li class="list-li">
-                    <div class="container">
-                      <div class="item item-1"><img src="./img/tx.jpg"></div>
-                      <div class="item item-2">asdasdasdas</div>
-                      <div class="item item-3">sdfsdfsdfsdff</div>
-                    </div>
-                    </li>
-                    <li class="list-li">
-                    <div class="container">
-                      <div class="item item-1"><img src="./img/tx.jpg"></div>
-                      <div class="item item-2">asdasdasdas</div>
-                      <div class="item item-3">sdfsdfsdfsdff</div>
-                    </div>
-                    </li><li class="list-li">
-                    <div class="container">
-                      <div class="item item-1"><img src="./img/tx.jpg"></div>
-                      <div class="item item-2">asdasdasdas</div>
-                      <div class="item item-3">sdfsdfsdfsdff</div>
-                    </div>
-                    </li><li class="list-li">
-                    <div class="container">
-                      <div class="item item-1"><img src="./img/tx.jpg"></div>
-                      <div class="item item-2">asdasdasdas</div>
-                      <div class="item item-3">sdfsdfsdfsdff</div>
-                    </div>
-                    </li><li class="list-li">
-                    <div class="container">
-                      <div class="item item-1"><img src="./img/tx.jpg"></div>
-                      <div class="item item-2">asdasdasdas</div>
-                      <div class="item item-3">sdfsdfsdfsdff</div>
-                    </div>
-                    </li><li class="list-li">
-                    <div class="container">
-                      <div class="item item-1"><img src="./img/tx.jpg"></div>
-                      <div class="item item-2">asdasdasdas</div>
-                      <div class="item item-3">sdfsdfsdfsdff</div>
-                    </div>
-                    </li><li class="list-li">
-                    <div class="container">
-                      <div class="item item-1"><img src="./img/tx.jpg"></div>
-                      <div class="item item-2">asdasdasdas</div>
-                      <div class="item item-3">sdfsdfsdfsdff</div>
-                    </div>
-                    </li><li class="list-li">
-                    <div class="container">
-                      <div class="item item-1"><img src="./img/tx.jpg"></div>
-                      <div class="item item-2">asdasdasdas</div>
-                      <div class="item item-3">sdfsdfsdfsdff</div>
-                    </div>
-                    </li><li class="list-li">
-                    <div class="container">
-                      <div class="item item-1"><img src="./img/tx.jpg"></div>
-                      <div class="item item-2">asdasdasdas</div>
-                      <div class="item item-3">sdfsdfsdfsdff</div>
-                    </div>
-                    </li>
-                </ul>
-                </div>
-            </div>
-        </body>
-           <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-             <!-- 动画 -->
-                <script type="text/javascript">
-                    $('.con-card-click').click(function(event) {
-                        $('.con-card').toggleClass('active');
-                        $('.con-tit-icon').toggleClass('active-icon');
-                    });
-                </script>
-        <!-- 地图 -->
-        <script type="text/javascript">  
-                    var markerArr = [  
-                        { title: "名称：广州火车站", point: "113.264531,23.157003", address: "广东省广州市广州火车站", tel: "12306" },  
-                        { title: "名称：广州塔（赤岗塔）", point: "113.330934,23.113401", address: "广东省广州市广州塔（赤岗塔） ", tel: "18500000000" },  
-                        { title: "名称：广州动物园", point: "113.312213,23.147267", address: "广东省广州市广州动物园", tel: "18500000000" },  
-                        { title: "名称：天河公园", point: "113.372867,23.134274", address: "广东省广州市天河公园", tel: "18500000000" }  
-      
-                    ];  
-      
-                    function map_init() {  
-                        var map = new BMap.Map("map"); // 创建Map实例  
-                        var point = new BMap.Point(113.312213, 23.147267); //地图中心点，广州市  
-                        map.centerAndZoom(point, 23); // 初始化地图,设置中心点坐标和地图级别。
-                        // map.enableScrollWheelZoom(true); 
-                        //启用滚轮放大缩小  
-                        //向地图中添加缩放控件  
-                        var ctrlNav = new window.BMap.NavigationControl({  
-                            anchor: BMAP_ANCHOR_TOP_LEFT,  
-                            type: BMAP_NAVIGATION_CONTROL_LARGE  
-                        });  
-                        map.addControl(ctrlNav);  
-      
-                        //向地图中添加缩略图控件  
-                        // var ctrlOve = new window.BMap.OverviewMapControl({  
-                        //     anchor: BMAP_ANCHOR_BOTTOM_RIGHT,  
-                        //     isOpen: 1  
-                        // });  
-                        // map.addControl(ctrlOve);  
-      
-                        //向地图中添加比例尺控件  
-                        // var ctrlSca = new window.BMap.ScaleControl({  
-                        //     anchor: BMAP_ANCHOR_BOTTOM_LEFT  
-                        // });  
-                        // map.addControl(ctrlSca);  
-      
-                        var point = new Array(); //存放标注点经纬信息的数组  
-                        var marker = new Array(); //存放标注点对象的数组  
-                        var info = new Array(); //存放提示信息窗口对象的数组 
-
-                        // var myIcon = new BMap.Icon("./img/map.png", new BMap.Size(30,35));
-                        // var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
-          
-
-                        // 将数据步入对应的数组
-                        for (var i = 0; i < markerArr.length; i++) {  
-                            var p0 = markerArr[i].point.split(",")[0]; //  
-                            var p1 = markerArr[i].point.split(",")[1]; //按照原数组的point格式将地图点坐标的经纬度分别提出来  
-                            point[i] = new window.BMap.Point(p0, p1); //循环生成新的地图点  
-                            // marker[i] = new window.BMap.Marker(point[i],{icon:myIcon}); //按照地图点坐标生成标记 
-                            marker[i] = new window.BMap.Marker(point[i]); 
-                            map.addOverlay(marker[i]);
-                            marker[i].setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
-                            // var label = new window.BMap.Label(markerArr[i].title, { offset: new window.BMap.Size(20, -10) });  
-                            // marker[i].setLabel(label);  
-                            info[i] = new window.BMap.InfoWindow("<p class='map-details'>" + markerArr[i].title + "</br>地址：" + markerArr[i].address + "</br> 电话：" + markerArr[i].tel + "</br></p>"); // 创建信息窗口对象  
-                        }  
-                        // marker[0].addEventListener("mouseover", function () {  
-                        //     this.openInfoWindow(info[0]);  
-                        // });  
-                        // marker[1].addEventListener("mouseover", function () {  
-                        //     this.openInfoWindow(info[1]);  
-                        // });  
-                        // marker[2].addEventListener("mouseover", function () {  
-                        //     this.openInfoWindow(info[2]);  
-                        // }); 
-
-                        // 转换成移动端点击
-                         marker[0].addEventListener("click", function () {  
-                            this.openInfoWindow(info[0]);  
-                        });  
-                        marker[1].addEventListener("click", function () {  
-                            this.openInfoWindow(info[1]);  
-                        });  
-                        marker[2].addEventListener("click", function () {  
-                            this.openInfoWindow(info[2]);  
-                        });  
-                    }  
-                    //异步调用百度js  
-                    function map_load() {  
-                        var load = document.createElement("script");  
-                        load.src = "http://api.map.baidu.com/api?v=1.4&callback=map_init";  
-                        document.body.appendChild(load);  
-                    }  
-                    window.onload = map_load;  
-                </script>
-    </html>  
+</html>
