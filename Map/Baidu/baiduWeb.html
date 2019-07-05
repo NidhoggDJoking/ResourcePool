@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+</head>
+        <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+        }
+        #mapcontainer {
+            height: 300px;
+            width: 500px;
+        }
+        #allmap {
+            height: 100%;
+            width: 100%;
+        }
+        #r-result {
+            width: 100%;
+            font-size: 14px;
+        }
+        #refresh {
+            padding: 5px !important;
+            border: 2px solid currentColor !important;
+            border-left: 2px solid transparent !important;
+            transform: rotate(32deg);
+            display: none;
+        }
+        .rotate {
+            animation: rotate 1s;
+        }
+        #refresh::after {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-bottom: 2px solid currentColor;
+            border-left: 2px solid currentcolor;
+            position: absolute;
+            top: 13px;
+            left: 0px;
+            transform: rotate(100deg);
+        }
+        #cityName {
+            display: none;
+        }
+        #mapsize {
+            display: none;
+        }
+        #super:hover {
+            background-color: #4a9dfd !important;
+            color: #f9f9f9 !important;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 15%;
+            margin: 0;
+            background: transparent;
+            height: 3px;
+        }
+        input[type="range"]:focus {
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 7px;
+            border: none;
+            box-shadow: 0 1px 1px #def3f8, inset 0 .125em .15em #c1c1c1;
+            border-radius: 200px;
+            background-color: #ffffff94;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 22px;
+            width: 22px;
+            margin-top: -9px;
+            background: #ffffff;
+            border-radius: 50%;
+            border: solid 0.125em rgba(205, 224, 230, 0.5);
+            box-shadow: 0 .125em .125em #3b4547;
+        }
+        @keyframes rotate {
+            0% {
+                transform: rotate(32deg);
+            }
+            100% {
+                transform: rotate(752deg);
+            }
+        }
+        </style>
+        <body>
+
+        <div id="allmap" style="width: 100%;height: 15rem;"></div>
+        <input type="hidden" name="longitude" id="longitude" value="113.025912">
+        <input type="hidden" name="latitude" id="latitude" value="28.219572">
+        <input type="hidden" name="size" id="size" value="12">
+</body>
+  <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&amp;ak=Z7YUjqYw69iFb7wFNc4LAbHSvp4e9a1U"></script>
+   <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+        $('.allmap').html("");
+        var longitude;
+        var latitude;
+        var mapsize;
+        var map;
+        function initialize() {
+            longitude = document.getElementById("longitude").value;
+            latitude = document.getElementById("latitude").value;
+            mapsize = document.getElementById("size").value;
+            map = new BMap.Map("allmap");
+            var ZoomControl = function() {
+                this.defaultAnchor = BMAP_ANCHOR_TOP_LEFT;
+                this.defaultOffset = new BMap.Size(10, 10);
+            };
+            ZoomControl.prototype = new BMap.Control();
+            ZoomControl.prototype.initialize = function(map) {
+                var div = document.createElement("div");
+                var tit = document.createTextNode("鼠标定位模式");
+                var txt = document.createTextNode("关闭定位模式");
+                div.appendChild(tit);
+                div.id = 'super';
+                div.style.cursor = "pointer";
+                div.style.border = "1px solid #79aeff";
+                div.style.backgroundColor = "#2288fe";
+                div.style.color = "#ececec";
+                div.style.borderRadius = "28px";
+                div.style.padding = '5px';
+                div.style.boxShadow = "2px 4px 5px #b8d9ff";
+                div.onclick = function(e) {
+                    if (ZoomControl.prototype.state) {
+                        div.removeChild(txt);
+                        div.appendChild(tit);
+                        readdr();
+                        ZoomControl.prototype.state = false;
+                    } else {
+                        div.removeChild(tit);
+                        div.appendChild(txt);
+                        addr();
+                        ZoomControl.prototype.state = true;
+                    };
+                };
+                map.getContainer().appendChild(div);
+                return div;
+            };
+            var myZoomCtrl = new ZoomControl();
+            map.addControl(myZoomCtrl);
+            var ZoomText = function() {
+                this.defaultAnchor = BMAP_ANCHOR_TOP_LEFT;
+                this.defaultOffset = new BMap.Size(13, 60);
+            };
+            ZoomText.prototype = new BMap.Control();
+            ZoomText.prototype.initialize = function(map) {
+                var div = document.createElement("input");
+                div.id = 'cityName';
+                div.style.cursor = "pointer";
+                div.style.width = "200px";
+                div.style.border = "1px solid #79aeff";
+                div.style.backgroundColor = "#ffffff82";
+                div.style.color = "#464444";
+                div.style.height = '30px';
+                div.style.borderRadius = "3px";
+                div.style.padding = '5px';
+                div.placeholder = '请输入要查询的地址：';
+                div.onchange = function(e) {
+                    theLocation();
+                };
+                map.getContainer().appendChild(div);
+                return div;
+            };
+            var myZoomText = new ZoomText();
+            map.addControl(myZoomText);
+            function ZoomRange() {
+                this.defaultAnchor = BMAP_ANCHOR_TOP_LEFT;
+                this.defaultOffset = new BMap.Size(15, 117);
+            };
+            ZoomRange.prototype = new BMap.Control();
+            ZoomRange.prototype.initialize = function(map) {
+                var div = document.createElement("input");
+                div.id = 'mapsize';
+                div.type = 'range';
+                div.min = '5';
+                div.max = '20';
+                div.value = '18';
+                div.style.width = "195px";
+                div.transform = 'rotate(90deg)';
+                div.style.cursor = "pointer";
+                div.onchange = function(e) {
+                    document.getElementById("size").value = document.getElementById("mapsize").value;
+                    baidumap();
+                };
+                map.getContainer().appendChild(div);
+                return div;
+            };
+            var myZoomRange = new ZoomRange();
+            map.addControl(myZoomRange);
+            var ZoomRefresh = function() {
+                this.defaultAnchor = BMAP_ANCHOR_TOP_LEFT;
+                this.defaultOffset = new BMap.Size(155, 19);
+            };
+            ZoomRefresh.prototype = new BMap.Control();
+            ZoomRefresh.prototype.initialize = function(map) {
+                var div = document.createElement("div");
+                div.id = 'refresh';
+                div.style.width = '20px';
+                div.style.height = '20px';
+                div.style.cursor = "pointer";
+                div.style.color = "#565656";
+                div.style.borderRadius = "50%";
+                div.onclick = function(e) {
+                    var refresh = document.getElementById("refresh");
+                    refresh.classList.add("rotate");
+                    setTimeout(() => { refresh.className = refresh.className.replace("rotate"); }, 1100);
+                    baidumap();
+                };
+                map.getContainer().appendChild(div);
+                return div;
+            };
+            var myZoomRefresh = new ZoomRefresh();
+            map.addControl(myZoomRefresh);
+        };
+        function addr() {
+            map.setDefaultCursor("crosshair");
+            map.addEventListener("click", lishi);
+            document.getElementById("cityName").style.display = 'block';
+            document.getElementById("mapsize").style.display = 'block';
+            document.getElementById("refresh").style.display = 'block';
+        }
+        function readdr() {
+            map.setDefaultCursor("url('bird.cur')");
+            map.removeEventListener("click", lishi);
+            document.getElementById("cityName").style.display = 'none';
+            document.getElementById("mapsize").style.display = 'none';
+            document.getElementById("refresh").style.display = 'none';
+            baidumap();
+        }
+        var lishi = function(e) {
+            var geoc = new BMap.Geocoder();
+            var pt = e.point;
+            document.getElementById("longitude").value = e.point.lng;
+            document.getElementById("latitude").value = e.point.lat;
+            document.getElementById("mapsize").value = map.getZoom();
+            document.getElementById("size").value = map.getZoom();
+            geoc.getLocation(pt, function(rs) {
+                var addComp = rs.addressComponents;
+                document.getElementById("cityName").value = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+            });
+            baidumap();
+        };
+        function theLocation() {
+            mapsize = document.getElementById("size").value;
+            var city = document.getElementById("cityName").value;
+            if (mapsize == "") {
+                mapsize = 18
+            };
+            if (city != "") {
+                map.centerAndZoom(city, mapsize);
+            }
+        }
+        function baidumap() {
+            var point = new BMap.Point(document.getElementById("longitude").value, document.getElementById("latitude").value);
+            map.centerAndZoom(point, document.getElementById("size").value);
+            map.enableScrollWheelZoom();
+            map.enableContinuousZoom();
+            marker = new BMap.Marker(point);
+            map.clearOverlays(marker);
+            map.addOverlay(marker);
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+        }
+        setTimeout("initialize()", 1000);
+        setTimeout("baidumap()", 1200);
+        </script>
+
+</html>
