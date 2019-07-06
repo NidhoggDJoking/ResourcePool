@@ -79,7 +79,7 @@ body {
 }
 
 .list-li {
-    border-bottom: 1px solid #e2e2e2;
+    border-bottom: 0.5px solid #f1f1f1;
     /*display: grid;
     width: 100%;
     grid-template-columns: repeat(3, 3fr);
@@ -141,7 +141,7 @@ body {
 <style>
     .placeholder {
     position: relative;
-    margin:1rem 0px 0.6rem 0px
+    margin:1rem 0px 0.4rem 0px;
 }
 
 .placeholder .plc-image {
@@ -167,7 +167,7 @@ body {
     height: 100%;
     top: 0;
     right: 0;
-    border-radius: .3rem;
+    border-radius: .2rem;
     /*background-size: 67%;*/
 }
 
@@ -181,7 +181,7 @@ body {
 
 .placeholder .plc-con .plc-title {
     font-weight: 600;
-    font-size: 1rem;
+    font-size: .9rem;
     color: #333;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -191,11 +191,21 @@ body {
     position: relative;
     word-wrap: break-word;
     word-break: break-all;
+    margin-left: 1rem;
+    font-family: SimHei;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
 }
 .plc-title-foot{
     font-size: .5rem;
     color: #404040;
     margin-top: .3rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 .placeholder a:visited .plc-title {
     text-decoration: initial;
@@ -229,7 +239,8 @@ body {
 
 .one-img-plc .plc-footer {
     position: absolute;
-    bottom: .12rem;
+    bottom: .2rem;
+    /*margin-left: 1rem;*/
 }
 
 .three-img-plc {
@@ -289,11 +300,33 @@ body {
     background-size: contain;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 6px;
+    margin-right: 5px;
 }
+
+.post-time:before{
+    content: '';
+    background: url(./img/ipon.png) no-repeat;
+    width: 15px;
+    height: 18px;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+/*.review-num:before{
+    content: '';
+    background: url(./img/feiji.png) no-repeat;
+    width: 15px;
+    height: 18px;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+}*/
 </style>
 
 <body>
+    <input type="hidden" name="longitude" id="longitude" value="113.025912">
+    <input type="hidden" name="latitude" id="latitude" value="28.219572">
     <div class="demo_content">
         <div style="height: 100%; width: 100%;" id="map"></div>
     </div>
@@ -304,7 +337,7 @@ body {
         </div>
         <div style="height: 32rem;overflow: scroll;">
             <ul class="list-ul">
-                <li class="list-li">
+                <!-- <li class="list-li">
                     <div class="content">
                         <div class="placeholder one-img-plc">
                             <a href="#">
@@ -312,9 +345,9 @@ body {
                                 <div class="plc-con">
                                     <p class="plc-footer">
                                         <span class="post-time">1000Km</span>
-                                        <!-- <span class="plc-footer-fr">
+                                        <span class="plc-footer-fr">
                                             <span class="review-num">0评</span>
-                                        </span> -->
+                                        </span>
                                     </p>
                                     <p class="plc-title">广州火车站</p>
                                     <p class="plc-title-foot">广东省广州市广州火车站广东省广州市广州火车站</p>
@@ -322,12 +355,41 @@ body {
                             </a>
                         </div>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
 </body>
+<script type="text/html" id="tpl-list">
+     <%for(var i = 0;i < markerArr.length;i++){%>
+
+                <li class="list-li">
+                    <div class="content">
+                        <div class="placeholder one-img-plc">
+                            <a href="#" onclick="displacement({{markerArr[i]['point']}})">
+                                <div class="plc-image"><img src="{{markerArr[i]['img']}}" style="display: block;"></div>
+                                <div class="plc-con">
+                                    <p class="plc-footer">
+                                        <span class="post-time">{{markerArr[i]['tel']}}</span>
+                                        <span class="plc-footer-fr">
+                                            <span class="review-num" href="javascript:displacement({{markerArr[i]['point']}});"><div></div></span>
+                                        </span>
+                                    </p>
+                                    <p class="plc-title">{{markerArr[i]['title']}}</p>
+                                    <p class="plc-title-foot">{{markerArr[i]['address']}}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+         <%}%>
+
+ </script>
+
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://unpkg.com/art-template@4.13.2/lib/template-web.js"></script>
+
 <!-- 动画 -->
 <script type="text/javascript">
 $('.con-card-click').click(function(event) {
@@ -337,108 +399,148 @@ $('.con-card-click').click(function(event) {
 </script>
 <!-- 地图 -->
 <script type="text/javascript">
+// 百度地图全局变量
+var map;
+var longitude=$('#longitude').val();
+var latitude=$('#latitude').val();
+// 数据
 var markerArr = [
-    { title: "名称：广州火车站", point: "113.264531,23.157003", address: "广东省广州市广州火车站", tel: "12306" },
-    { title: "名称：广州塔（赤岗塔）", point: "113.330934,23.113401", address: "广东省广州市广州塔（赤岗塔） ", tel: "18500000000" },
-    { title: "名称：广州动物园", point: "113.312213,23.147267", address: "广东省广州市广州动物园", tel: "18500000000" },
-    { title: "名称：天河公园", point: "113.372867,23.134274", address: "广东省广州市天河公园", tel: "18500000000" }
+    { title: "马王堆", point: "113.034007,28.212038", address: "湖南长沙马王堆xxxxxxxxxx", tel: "10026",img:"http://t12.baidu.com/it/u=33560294,986163740&fm=173&app=25&f=JPEG?w=591&h=475&s=66E8F25A7AB3B5F30A75D51E0300C0C5" },
+    { title: "烈士公园", point: "113.01331,28.212292", address: "湖南长沙烈士公园xxxxxxxxxx", tel: "1254454545",img:"https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1933224249,1541278874&fm=58&bpow=1200&bpoh=800" },
+    { title: "南湖大酒店", point: "113.021682,28.214457", address: "湖南长沙南湖大酒店xxxxxxxxxx", tel: "54512121",img:"https://paimgcdn.baidu.com/6510F82097BEA38A?src=http%3A%2F%2Fms.bdimg.com%2Fdsp-image%2F1399669478.jpg&rz=urar_2_968_600&v=0" },
+    { title: "城市先锋", point: "113.015969,28.212483", address: "湖南长沙城市先锋xxxxxxxxxx", tel: "898954655",img:"https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=165926891,1683617544&fm=85&app=63&f=JPEG?w=121&h=75&s=DA8227C11050BFCE5619A4030300D0C2" },
+    { title: "橘子洲头", point: "112.969185,28.192364", address: "湖南长沙橘子洲头xxxxxxxxxx", tel: "564878745",img:"https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1526009583,2359151805&fm=27&gp=0.jpg" },
+    { title: "贺龙体育场", point: "112.99017,28.184214", address: "湖南长沙贺龙体育场xxxxxxxxxx", tel: "985856484",img:"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4273484791,3016628200&fm=27&gp=0.jpg" },
+    { title: "中南林业科技大学", point: "113.000518,28.138355", address: "湖南长沙中南林业科技大学xxxxxxxxxx", tel: "87484545",img:"https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3389925231,2663165624&fm=179&app=42&f=JPEG?w=121&h=76" }
 
 ];
+// 包裹数据
+     var json = {markerArr};
+// 数据插入模板
+     var html = template('tpl-list', json);
+     $('.list-ul').html(html);
+    function map_init() {
+        map = new BMap.Map("map"); // 创建Map实例  
+        var point = new BMap.Point(116.404, 39.915); //地图中心点，广州市  
+        map.centerAndZoom(point, 15); // 初始化地图,设置中心点坐标和地图级别。
+        // map.enableScrollWheelZoom(true); 
+        //启用滚轮放大缩小  
+        
+        //定位并将位置设为中心
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function(r){
+            if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                var mk = new BMap.Marker(r.point);
+                map.addOverlay(mk);
+                map.panTo(r.point);
+                //将当前定位的经纬度保存方便计算距离
+                console.log('您的位置：'+r.point.lng+','+r.point.lat); 
+                longitude = r.point.lng
+                latitude = r.point.lat
+            }
+            else {
+                console.log('错误代码:'+this.getStatus());
+            }        
+        },{enableHighAccuracy: true})
 
-function map_init() {
-    var map = new BMap.Map("map"); // 创建Map实例  
-    var point = new BMap.Point(113.312213, 23.147267); //地图中心点，广州市  
-    map.centerAndZoom(point, 23); // 初始化地图,设置中心点坐标和地图级别。
-    // map.enableScrollWheelZoom(true); 
-    //启用滚轮放大缩小  
-    
 
-    //向地图中添加缩略图控件  
-    // var ctrlOve = new window.BMap.OverviewMapControl({  
-    //     anchor: BMAP_ANCHOR_BOTTOM_RIGHT,  
-    //     isOpen: 1  
-    // });  
-    // map.addControl(ctrlOve);  
+        // H5上的控件
+        var navigationControl = new BMap.NavigationControl({
+        // 靠左上角位置
+        anchor: BMAP_ANCHOR_TOP_LEFT,
+        // LARGE类型
+        type: BMAP_NAVIGATION_CONTROL_LARGE,
+        // 启用显示定位
+        enableGeolocation: true
+        });
+        map.addControl(navigationControl);
+        //向地图中添加缩略图控件  
+        // var ctrlOve = new window.BMap.OverviewMapControl({  
+        //     anchor: BMAP_ANCHOR_BOTTOM_RIGHT,  
+        //     isOpen: 1  
+        // });  
+        // map.addControl(ctrlOve);  
 
-    //向地图中添加比例尺控件  
-    // var ctrlSca = new window.BMap.ScaleControl({  
-    //     anchor: BMAP_ANCHOR_BOTTOM_LEFT  
-    // });  
-    // map.addControl(ctrlSca);  
+        //向地图中添加比例尺控件  
+        // var ctrlSca = new window.BMap.ScaleControl({  
+        //     anchor: BMAP_ANCHOR_BOTTOM_LEFT  
+        // });  
+        // map.addControl(ctrlSca);  
 
-    var point = new Array(); //存放标注点经纬信息的数组  
-    var marker = new Array(); //存放标注点对象的数组  
-    var info = new Array(); //存放提示信息窗口对象的数组 
+        var point = new Array(); //存放标注点经纬信息的数组  
+        var marker = new Array(); //存放标注点对象的数组  
+        var info = new Array(); //存放提示信息窗口对象的数组 
 
-    // var myIcon = new BMap.Icon("./img/map.png", new BMap.Size(30,35));
-    // var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+        // var myIcon = new BMap.Icon("./img/map.png", new BMap.Size(30,35));
+        // var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
 
 
-    // 将数据步入对应的数组
-    for (var i = 0; i < markerArr.length; i++) {
-        var p0 = markerArr[i].point.split(",")[0]; //  
-        var p1 = markerArr[i].point.split(",")[1]; //按照原数组的point格式将地图点坐标的经纬度分别提出来  
-        point[i] = new window.BMap.Point(p0, p1); //循环生成新的地图点  
-        // marker[i] = new window.BMap.Marker(point[i],{icon:myIcon}); //按照地图点坐标生成标记 
-        marker[i] = new window.BMap.Marker(point[i]);
-        map.addOverlay(marker[i]);
-        marker[i].setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
-        // var label = new window.BMap.Label(markerArr[i].title, { offset: new window.BMap.Size(20, -10) });  
-        // marker[i].setLabel(label);  
-        info[i] = new window.BMap.InfoWindow("<p class='map-details'>" + markerArr[i].title + "</br>地址：" + markerArr[i].address + "</br> 电话：" + markerArr[i].tel + "</br></p>"); // 创建信息窗口对象  
+        // 将数据步入对应的数组
+        for (var i = 0; i < markerArr.length; i++) {
+            var p0 = markerArr[i].point.split(",")[0]; //  
+            var p1 = markerArr[i].point.split(",")[1]; //按照原数组的point格式将地图点坐标的经纬度分别提出来  
+            point[i] = new window.BMap.Point(p0, p1); //循环生成新的地图点  
+            // marker[i] = new window.BMap.Marker(point[i],{icon:myIcon}); //按照地图点坐标生成标记 
+            marker[i] = new window.BMap.Marker(point[i]);
+            map.addOverlay(marker[i]);
+            marker[i].setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
+            // var label = new window.BMap.Label(markerArr[i].title, { offset: new window.BMap.Size(20, -10) });  
+            // marker[i].setLabel(label);  
+            info[i] = new window.BMap.InfoWindow("<p class='map-details'>名称：" + markerArr[i].title + "</br>地址：" + markerArr[i].address + "</br> 电话：" + markerArr[i].tel + "</br></p>"); // 创建信息窗口对象  
+        }
+            // marker[0].addEventListener("mouseover", function () {  
+            //     this.openInfoWindow(info[0]);  
+            // });  
+            // marker[1].addEventListener("mouseover", function () {  
+            //     this.openInfoWindow(info[1]);  
+            // });  
+            // marker[2].addEventListener("mouseover", function () {  
+            //     this.openInfoWindow(info[2]);  
+            // }); 
+
+            // 转换成移动端点击
+            // marker[0].addEventListener("click", function() {
+            //     this.openInfoWindow(info[0]);
+            // });
+            // marker[1].addEventListener("click", function() {
+            //     this.openInfoWindow(info[1]);
+            // });
+            // marker[2].addEventListener("click", function() {
+            //     this.openInfoWindow(info[2]);
+            // });
+            // marker[3].addEventListener("click", function() {
+            //     this.openInfoWindow(info[3]);
+            // });
+
+        //手动添加标点详情改为全自动添加 
+        for(let i=0;i<marker.length;i++){
+            marker[i].addEventListener("click", function() {
+                this.openInfoWindow(info[i]);
+            });
+        }
+
     }
-    // marker[0].addEventListener("mouseover", function () {  
-    //     this.openInfoWindow(info[0]);  
-    // });  
-    // marker[1].addEventListener("mouseover", function () {  
-    //     this.openInfoWindow(info[1]);  
-    // });  
-    // marker[2].addEventListener("mouseover", function () {  
-    //     this.openInfoWindow(info[2]);  
-    // }); 
-
-    // 转换成移动端点击
-    marker[0].addEventListener("click", function() {
-        this.openInfoWindow(info[0]);
-    });
-    marker[1].addEventListener("click", function() {
-        this.openInfoWindow(info[1]);
-    });
-    marker[2].addEventListener("click", function() {
-        this.openInfoWindow(info[2]);
-    });
-}
 //异步调用百度js  
 function map_load() {
     var load = document.createElement("script");
-    load.src = "http://api.map.baidu.com/api?v=1.4&ak=Z7YUjqYw69iFb7wFNc4LAbHSvp4e9a1U&callback=map_init";
+    load.src = "http://api.map.baidu.com/api?v=2.0&ak=Z7YUjqYw69iFb7wFNc4LAbHSvp4e9a1U&callback=map_init";
     document.body.appendChild(load);
 }
 window.onload = map_load;
-</script>
-<!-- 距离 -->
-<script type="text/javascript">
 
-
-// var pointA = new BMap.Point(106.486654, 29.490295); // 创建点坐标A--大渡口区
-// var pointB = new BMap.Point(106.581515, 29.615467); // 创建点坐标B--江北区
-// alert((map.getDistance(pointA, pointB)).toFixed(2)); //获取两点距离,保留小数点后两位
-
-
-function dw(){
-    console.log(new BMap.Geolocation())
-var geolocation = new BMap.Geolocation();
-    geolocation.getCurrentPosition(function(r){
-        if(this.getStatus() == BMAP_STATUS_SUCCESS){
-            var mk = new BMap.Marker(r.point);
-            map.addOverlay(mk);
-            map.panTo(r.point);
-            alert('您的位置：'+r.point.lng+','+r.point.lat);
-        }
-        else {
-            alert('failed'+this.getStatus());
-        }        
-    },{enableHighAccuracy: true})
+// 当前位置与目标距离
+function displacement(longitude,latitude){
+    var pointA = new BMap.Point($('#longitude').val(), $('#latitude').val()); // 创建当前地点坐标A
+    var pointB = new BMap.Point(longitude,latitude); // 创建目标地点坐标B
+    var distance = map.getDistance(pointA, pointB).toFixed(0);
+    // 大于1000m用km表示
+    if (distance>1000) {
+        distance=(distance/1000).toFixed(1);
+        alert(distance+"km"); 
+    }else{
+        alert(distance+"m"); //获取两点距离,保留小数点后两位
+    }
+    
 }
 </script>
 
