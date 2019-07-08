@@ -48,6 +48,7 @@ function get_access_token(){
     $target = json_decode($res_t,true)['access_token'];
 
     // var_dump($target);
+	
     return $target;
 }
     // 可以直接用base64编码的图片
