@@ -8,8 +8,6 @@
                 duration: 3000,
                 step: function() {
                     var percentage = Math.round(this.property);
-
-                    // console.log(percentage);
  
                     $('#progress').css('width',  percentage+"%");
  
@@ -36,25 +34,27 @@
                 position:absolute;
                 height:2px;
                 -webkit-box-shadow:#ff0000 1px 0 3px 1px;
+                box-shadow:#ff0000 1px 0 1px 1px;
                 -webkit-border-radius:100%;
                 opacity:1;
                 width:100%;
                 right:-10px;
                 -webkit-animation:pulse 2s ease-out 0s infinite;
+                animation:pulse 1s ease-out 0s infinite;
             }
  
             @-webkit-keyframes pulse {
                 30% {
-                    opacity:.2
+                    opacity:.2;
                 }
                 45%{
-                    opacity:.3
+                    opacity:.3;
                 }
                 60% {
-                    opacity:0.1;
+                    opacity:.1;
                 }
                 100% {
-                    opacity:.5
+                    opacity:.2;
                 }
             }
              
