@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>3级联动腾讯数据版</title>
+</head>
+<body>
+	<script type="text/html" id="txmap">
+	<!-- <%for(var i = 0;i < result.length;i++){%>
+        <li>
+           <div class="w3_banner_info_grid">
+              <h3>{{data[i]['title']}}</h3>
+                 <p>{{data[i]['content']}}</p>
+                    <ul>
+                      <li><a href="about.html" class="w3ls_more" data-target="#myModal">关于我们</a></li>
+                          <li><a href="about.html" class="w3l_contact">知道更多</a></li>
+                     </ul>
+                  </div>
+              </li>
+         <%}%> -->
+         <p>{{result}}</p>
+	</script>
+	<div id="con">
+		
+	</div>
+</body>
+<script src="jquery-2.2.3.min.js"></script>
+<script src="template-web.js"></script>
+<script  type="text/javascript" >
+
+		let mykey="OI3BZ-6VCCF-GXLJN-JEQCM-2RA7Z-AUBJV";
+
+		// $.ajax({
+		// 		type: "get",
+		// 		url: "https://apis.map.qq.com/ws/district/v1/list?key=" + mykey,
+		// 		data: {
+		// 		},
+		// 		dataType: "jsonp",
+		// 		success: function(json) {
+		// 			console.log('7777');
+		// 			var result = JSON.stringify(json);
+		// 			var html = template('txmap',result);
+  		//           		$('body').html(html);
+		// 		}
+		// 	})
+
+// *************************************************************************
+
+   		$(document).ready(function () {
+ 
+                $.ajax({
+                    url: "https://apis.map.qq.com/ws/district/v1/list?key=" + mykey,
+                    type: "GET",
+                    dataType: "jsonp", //指定服务器返回的数据类型
+                    jsonpCallback: "showData",
+                    success: function (data) {
+                        // var result = JSON.stringify(data); //json对象转成字符串
+                        // console.log(result)
+                        // $("#con").val(data);
+                    }
+                });
+ 
+        });
+
+		 function showData (data) {
+            console.info("调用showData");
+ 
+            var result = JSON.stringify(data);
+            $("#con").val(result);
+        }
+
+// *************************************************************************
+
+// $.getJSON("https://apis.map.qq.com/ws/district/v1/list?key=" + mykey, function(data) {
+    
+
+    
+//     $('#con').html(html); 
+// });
+</script>
+</html>
