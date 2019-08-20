@@ -32,6 +32,7 @@
     border: 2px solid currentColor !important;
     border-left: 2px solid transparent !important;
     transform: rotate(32deg);
+    top: 11px !important;
     display: none;
 }
 
@@ -41,14 +42,14 @@
 
 #refresh::after {
     content: "";
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-bottom: 2px solid currentColor;
     border-left: 2px solid currentcolor;
     position: absolute;
-    top: 23px;
+    top: 22px;
     left: 1px;
-    transform: rotate(80deg);
+    transform: rotate(82deg);
 }
 
 #cityName {
@@ -219,10 +220,10 @@ function initialize() {
     ZoomRefresh.prototype.initialize = function(map) {
         var div = document.createElement("div");
         div.id = 'refresh';
-        div.style.width = '20px';
-        div.style.height = '20px';
+        div.style.width = '18px';
+        div.style.height = '18px';
         div.style.cursor = "pointer";
-        div.style.color = "#565656";
+        div.style.color = "#848484";
         div.style.borderRadius = "50%";
         div.onclick = function(e) {
             var refresh = document.getElementById("refresh");
