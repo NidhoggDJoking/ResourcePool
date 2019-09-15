@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Link</title>
+</head>
+<style type="text/css">
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    background: #f6f6f6;
+}
+
+section {
+    width: 100%;
+}
+
+.link {
+    height: 35px;
+    width: 62.5%;
+    margin: 0 auto;
+    border-bottom: 2px solid #F8673B;
+
+}
+
+.link-left {
+    line-height: 35px;
+    width: 25%;
+    float: left;
+}
+
+.link-right {
+    line-height: 35px;
+}
+
+ul a {
+    color: #666666;
+    float: left;
+    cursor: pointer;
+}
+
+ul a:hover {
+    color: #F8673B;
+}
+
+ul li {
+    list-style-type: none;
+    padding: 0 1.5rem;
+    font-size: 15.5px;
+    font-family: "Microsoft Yahei";
+}
+
+.active {
+    color: #F8673B;
+}
+
+.active:after {
+    content: "";
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-right: 9px solid #F8673B;
+    position: absolute;
+    transform: rotate(90deg);
+    top: 22px;
+    margin-left: 50px;
+}
+
+.link-bot {
+    width: 62.5%;
+    margin: 0 auto;
+}
+
+.classification {
+    width: 25%;
+    height: 300px;
+    background: #fff;
+    float: left;
+    border-right: 1px dashed #aeaeae;
+    /*	box-shadow: 0px 0px 3px 1px #888;*/
+}
+
+.imglist {
+    background: #fff;
+    height: 300px;
+    width: 75%;
+    float: right;
+    margin-right: -1px;
+    /*box-shadow: 0px 0px 3px 1px #888;*/
+}
+
+.link-classification {
+    background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.classification p {
+    font-size: 16px;
+    color: #5a5a5a;
+    padding: 10px 14px;
+    font-weight: 600;
+}
+
+.link-classification a {
+    text-decoration: none;
+    margin: 5px 20px;
+    padding: 4px;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #727272;
+}
+
+.link-classification a.on {
+    background: #F8673B;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.link-classification {
+    background: #fff;
+}
+
+.card {
+	display: inline-block;
+    cursor: pointer;
+    width: 240px;
+    height: 270px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 6px 1px #888;
+}
+
+.card img {
+    width: 240px;
+    height: 197px;
+}
+
+.card p {
+    /* width: 100%; */
+    max-width: 88%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 7px 12px;
+    font-size: 14px;
+    color: #313131;
+    font-weight: 600;
+}
+
+.card-foot {
+    padding: 7px 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-foot-left {
+    font-size: 12px;
+    color: #676767;
+}
+
+.card-foot-right {
+    color: red;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.card-foot-right strike {
+    color: #999999;
+    font-size: 11px;
+    font-weight: 400;
+    margin-right: 3px;
+}
+</style>
+
+<body>
+    <section>
+        <div class="link">
+            <div class="link-left">
+                <p><b>精品线路</b></p>
+            </div>
+            <div class="link-right">
+                <ul>
+                    <a class="active">
+                        <li>精品路线</li>
+                    </a>
+                    <a>
+                        <li>民宿客栈</li>
+                    </a>
+                    <a>
+                        <li>特色美食</li>
+                    </a>
+                    <a>
+                        <li>攻略游记</li>
+                    </a>
+                    <a>
+                        <li>布局站位</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="link-bot">
+            <div class="classification">
+                <p>热门线路</p>
+                <div class="link-classification">
+                    <a href="" class="on">热门线路</a>
+                    <a href="">热门线路</a>
+                    <a href="">热门线路</a>
+                    <a href="">热门线路</a>
+                    <a href="">热门线路</a>
+                    <a href="">热门线路</a>
+                    <a href="">热门线路</a>
+                </div>
+            </div>
+            <div class="imglist">
+                <div class="card">
+                    <img src="http://ly.daxxtrip.com/uploads/2018/1204/19204502b84249eb3d4a61d0029cdd82_283x193.jpg" alt="">
+                    <p>走入神秘湘西 体验创意课堂走入神秘湘西 体验创意课堂</p>
+                    <div class="card-foot">
+                        <span class="card-foot-left">神奇湘东</span>
+                        <span class="card-foot-right"><strike>原价: ￥998</strike>￥520 起</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="http://ly.daxxtrip.com/uploads/2018/1204/19204502b84249eb3d4a61d0029cdd82_283x193.jpg" alt="">
+                    <p>走入神秘湘西 体验创意课堂走入神秘湘西 体验创意课堂</p>
+                    <div class="card-foot">
+                        <span class="card-foot-left">神奇湘东</span>
+                        <span class="card-foot-right"><strike>原价: ￥998</strike>￥520 起</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
