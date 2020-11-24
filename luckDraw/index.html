@@ -1,0 +1,454 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>抽奖</title>
+
+	<link href="css/css.css" rel="stylesheet" type="text/css">
+	<link rel="shortcut icon " type="images/x-icon" href="img/cj.png">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+	<div class="box">
+		<p class="Title">中国文旅企业发展峰会暨</br>第二届全国旅游学会年会</p>
+		<ul class="prizeList">
+			<!-- {%lcmx_gbook_list set="列表名:gbook,显示数目:20,标题长度:20,类别:0,栏目:1"%}
+		{%foreach from=$gbook item=list name=foo%}
+		<li>{%$smarty.foreach.foo.iteration%}、<span>{%$list.lc_name%}</span><label>{%$list.tel%}</label></li>
+		{%/foreach%} -->
+		</ul>
+		<div class="submit" data-id="0">开 始</div>
+	</div>
+
+	<script type="text/javascript">
+		let luckDraw = [{
+			"id": "1",
+			"name": "张三"
+		},
+		{
+			"id": "2",
+			"name": "李四"
+		},
+		{
+			"id": "3",
+			"name": "王大麻子"
+		},
+		{
+			"id": "4",
+			"name": "阿拉"
+		},
+		{
+			"id": "5",
+			"name": "活动时间"
+		},
+		{
+			"id": "6",
+			"name": "分阿萨德"
+		},
+		{
+			"id": "7",
+			"name": "按时啊"
+		},
+		{
+			"id": "8",
+			"name": "富商大贾"
+		},
+		{
+			"id": "9",
+			"name": "分公司"
+		},
+		{
+			"id": "10",
+			"name": "个双方各"
+		},
+		{
+			"id": "11",
+			"name": "张是梵蒂冈三"
+		},
+		{
+			"id": "12",
+			"name": "双方各"
+		},
+		{
+			"id": "13",
+			"name": "是是梵蒂冈"
+		},
+		{
+			"id": "14",
+			"name": "对方感受到"
+		},
+		{
+			"id": "15",
+			"name": "的是干啥的"
+		},
+		{
+			"id": "16",
+			"name": "十多个发送到个"
+		},
+		{
+			"id": "17",
+			"name": "的双方各"
+		},
+		{
+			"id": "18",
+			"name": "换个"
+		},
+		{
+			"id": "19",
+			"name": "就梵蒂冈和"
+		},
+		{
+			"id": "20",
+			"name": "东方红"
+		},
+		{
+			"id": "21",
+			"name": "张和豆腐干三"
+		},
+		{
+			"id": "22",
+			"name": "大概"
+		},
+		{
+			"id": "23",
+			"name": "烦得很"
+		},
+		{
+			"id": "24",
+			"name": "梵蒂冈"
+		},
+		{
+			"id": "25",
+			"name": "电饭锅和"
+		},
+		{
+			"id": "26",
+			"name": "个"
+		},
+		{
+			"id": "27",
+			"name": "订个婚"
+		},
+		{
+			"id": "28",
+			"name": "东方红"
+		},
+		{
+			"id": "29",
+			"name": "电饭锅和"
+		},
+		{
+			"id": "30",
+			"name": "好"
+		},
+		{
+			"id": "31",
+			"name": "好的"
+		},
+		{
+			"id": "32",
+			"name": "额特"
+		},
+		{
+			"id": "33",
+			"name": "热水"
+		},
+		{
+			"id": "34",
+			"name": "刚刚"
+		},
+		{
+			"id": "35",
+			"name": "房间号"
+		},
+		{
+			"id": "36",
+			"name": "发个说的"
+		},
+		{
+			"id": "37",
+			"name": "风格的"
+		},
+		{
+			"id": "38",
+			"name": "是大法官"
+		},
+		{
+			"id": "39",
+			"name": "是否"
+		},
+		{
+			"id": "40",
+			"name": "十多个发送到个"
+		},
+		{
+			"id": "41",
+			"name": "刚刚"
+		},
+		{
+			"id": "42",
+			"name": "萨芬的"
+		},
+		{
+			"id": "43",
+			"name": "张三"
+		},
+		{
+			"id": "44",
+			"name": "发个"
+		},
+		{
+			"id": "45",
+			"name": "萨芬的"
+		},
+		{
+			"id": "46",
+			"name": "双方各"
+		},
+		{
+			"id": "47",
+			"name": "是大法官"
+		},
+		{
+			"id": "48",
+			"name": "萨芬的"
+		},
+		{
+			"id": "49",
+			"name": "是大法官"
+		},
+		{
+			"id": "50",
+			"name": "是爱的说法"
+		},
+		{
+			"id": "51",
+			"name": "阿斯蒂芬"
+		},
+		{
+			"id": "52",
+			"name": "第三帝国"
+		},
+		{
+			"id": "53",
+			"name": "是大法官"
+		},
+		{
+			"id": "54",
+			"name": "是大法官"
+		},
+		{
+			"id": "55",
+			"name": "张爱的方式"
+		},
+		{
+			"id": "56",
+			"name": "个发多少"
+		},
+		{
+			"id": "57",
+			"name": "大概"
+		},
+		{
+			"id": "58",
+			"name": "电饭锅和"
+		},
+		{
+			"id": "59",
+			"name": "订个婚"
+		},
+		{
+			"id": "60",
+			"name": "改好"
+		},
+		{
+			"id": "61",
+			"name": "电饭锅和"
+		},
+		{
+			"id": "62",
+			"name": "订个婚"
+		},
+		{
+			"id": "63",
+			"name": "大概"
+		},
+		{
+			"id": "64",
+			"name": "改好"
+		},
+		{
+			"id": "65",
+			"name": "电饭锅和"
+		},
+		{
+			"id": "66",
+			"name": "大地飞歌"
+		},
+		{
+			"id": "67",
+			"name": "好"
+		},
+		{
+			"id": "68",
+			"name": "萨芬的"
+		},
+		{
+			"id": "69",
+			"name": "发个"
+		},
+		{
+			"id": "70",
+			"name": "是梵蒂冈"
+		},
+		{
+			"id": "71",
+			"name": "撒旦法"
+		},
+		{
+			"id": "72",
+			"name": "是梵蒂冈"
+		}
+		];
+		//从一个给定的数组arr中,随机返回num个不重复项
+		function getArrayItems(arr, num) {
+			//新建一个数组,将传入的数组复制过来,用于运算,而不要直接操作传入的数组;
+			var temp_array = new Array();
+			for (var index in arr) {
+				temp_array.push(arr[index]);
+			}
+			//取出的数值项,保存在此数组
+			var return_array = new Array();
+			for (var i = 0; i < num; i++) {
+				//判断如果数组还有可以取出的元素,以防下标越界
+				if (temp_array.length > 0) {
+					//在数组中产生一个随机索引
+					var arrIndex = Math.floor(Math.random() * temp_array.length);
+					//将此随机索引的对应的数组元素值复制出来
+					return_array[i] = temp_array[arrIndex];
+					//然后删掉此索引的数组元素,这时候temp_array变为新的数组
+					temp_array.splice(arrIndex, 1);
+				} else {
+					//数组中数据项取完后,退出循环,比如数组本来只有10项,但要求取出20项.
+					break;
+				}
+			}
+			return return_array;
+		}
+		var interval;
+		var MAX = 10;
+		$(".submit").click(function () {
+			var status = $(this).data("id");
+			var ints;
+			if (status == 0) {
+				// $.get("data.json", {}, function (data) {
+				// 	if (data) {
+				// 		if (data.code == "1") {
+				// 			function times() {
+				// 				var ArrList = data.data;
+				// 				var res = getArrayItems(ArrList, 10);
+				// 				str = '';
+				// 				for (o in res) {
+				// 					num = parseInt(o) + 1;
+				// 					str += '<li data-id="' + res[o].id + '">' + num + '、<span>' + res[o]
+				// 						.name + '</span></li>';
+				// 					// <label>'+res[o].tel+'</label>
+				// 				}
+				// 				$(".prizeList").html(str);
+				// 			}
+				// 			interval = setInterval(times, 0);
+				// 			$(".submit").data("id", "1");
+				// 			$(".submit").text("停止");
+				// 		}
+				// 	} else {
+				// 		alert('Ajax error!');
+				// 	}
+				// }, 'json');
+				var now = gen.next().value;
+				$(".Title").text(now.tit + "中奖名单显示");
+				MAX = now.num;
+				interval = setInterval(times, 0);
+				$(".submit").data("id", "1");
+				$(".submit").text("停止");
+			} else {
+				clearInterval(interval);
+				delLuckyer()
+				$(".submit").data("id", "0");
+				$(".submit").text("开始");
+			}
+		})
+
+		function times() {
+			var res = getArrayItems(luckDraw, MAX);
+			str = '';
+			for (o in res) {
+				num = parseInt(o) + 1;
+				str += '<li data-id="' + res[o].id + '">' + num + '、<span>' + res[o]
+					.name + '</span></li>';
+			}
+			$(".prizeList").html(str);
+		}
+		// 这是已中奖的幸运儿将他们移除后续抽奖
+		function delLuckyer(arr) {
+			console.log('==========这是已中奖的幸运儿将他们移除后续抽奖===========');
+			$("li").each(function () {
+				console.log($(this).text())
+				// console.log($(this).data("id") + '-' + $(this).text())
+				delArray($(this).data("id"));
+			});
+		}
+		// 我就喜欢分开写^_^
+		function delArray(id) {
+			const array = luckDraw.filter(i => i.id == id);
+			const Pointer = luckDraw.indexOf(array[0]);
+			luckDraw.splice(Pointer, 1);
+			// console.log(luckDraw);
+		}
+		let gen = generator();
+		// 抽奖步骤使用迭代器
+		function* generator() {
+			// 幸运奖 5*10 位
+			yield {
+				tit: '第一轮幸运奖',
+				num: 10
+			};
+			yield {
+				tit: '第二轮幸运奖',
+				num: 10
+			};
+			yield {
+				tit: '第三轮幸运奖',
+				num: 10
+			};
+			yield {
+				tit: '第四轮幸运奖',
+				num: 10
+			};
+			yield {
+				tit: '第五轮幸运奖',
+				num: 10
+			};
+			// 三等奖 10位
+			yield {
+				tit: '三等奖',
+				num: 10
+			};
+			// 二等奖 5位
+			yield {
+				tit: '二等奖',
+				num: 5
+			};
+			// 一等奖 2位
+			yield {
+				tit: '一等奖',
+				num: 2
+			};
+		}
+	</script>
+</body>
+
+</html>

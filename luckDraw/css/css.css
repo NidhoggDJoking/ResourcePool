@@ -1,0 +1,146 @@
+@charset "utf-8";
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "微软雅黑";
+    font-size: 10px;
+    min-width: 1340px;
+    position: relative;
+    height: 100%;
+    background-size: 100%;
+    /* background-color: #2a23c7; */
+    background-color: #c10f0f;
+    /* background-image:url(../img/bg.jpg); */
+    background-image:url(../img/firstp_bg.jpg);
+}
+
+textarea {
+    font-family: "微软雅黑";
+}
+
+html,
+body,
+div,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+img {
+    border: 0;
+    vertical-align: bottom;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #fff
+}
+
+input::-webkit-input-placeholder {
+    color: #fff;
+    font-size: 12px;
+}
+
+.cl {
+    display: block;
+    clear: both;
+}
+
+.box {
+    position: relative;
+    padding-bottom: 90px
+}
+
+.Title {
+    font-size: 54.85px;
+    color: #ffdc00;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 150px;
+    padding-bottom: 70px;
+    text-shadow: 5px 5px 5px #ff0053;
+}
+
+.prizeList {
+    width: 1340px;
+    margin: 0 auto;
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    column-count: 2;
+    column-gap: none;
+    column-count: none;
+}
+
+.prizeList li {
+    width: 600px;
+    height: 60px;
+    /* background-color: rgba(38, 58, 219, .7); */
+    background-color:rgb(198, 16, 13);
+    line-height: 60px;
+    box-sizing: border-box;
+    /* border: 1px dashed #2864ef; */
+    border: 1px dashed #ed4a21;
+    margin-bottom: 20px;
+    padding: 0 25px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 22px;
+    writing-mode: lr-tb;
+    display: inline-block;
+    /*ie8 竖直排列*/
+}
+
+.prizeList li label {
+    float: right;
+    font-weight: normal;
+}
+
+.submit {
+    /* background: url(../img/btnbg.png) no-repeat; */
+    width: 540px;
+    height: 98px;
+    margin: 35px auto 0;
+    background-size: 100% 100%;
+    font-weight: bold;
+    font-size: 52px;
+    color: #fff;
+    text-align: center;
+    line-height: 98px;
+    background-color: #c10f0f;
+    border-radius: 50px;
+    box-shadow: 1px 1px 5px 2px #b00e0c;
+    cursor:pointer;
+    transition: all 1s;
+}
+.submit:hover{
+    transform: scale(1.05);
+}
